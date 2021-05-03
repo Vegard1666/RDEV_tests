@@ -1,0 +1,8 @@
+{
+  "rdev": {
+    "url": "http://localhost:5000",
+    "login": "admin",
+    "password": "admin",
+    "connectionString": "Server=localhost;Database=rdev2019;Port=5432;Password=postgres;User Id=postgres"
+  }
+}

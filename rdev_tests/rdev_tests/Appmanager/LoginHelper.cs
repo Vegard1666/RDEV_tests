@@ -1,55 +1,45 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
 
-namespace rdev_tests
+namespace rdev_tests.AppManager
 {
     public class LoginHelper : HelperBase
     {
-        public LoginHelper(AppManager manager) : base(manager)
+        public string BaseURL { get; set; }
+        public string ConnectionString { get; private set; }
+        public string Login { get; private set; }
+        public string Password { get; private set; }
+
+        public LoginHelper(ApplicationManager manager, string baseURL, string connectionString, string login, string password)
+            : base(manager)
         {
+            BaseURL = baseURL;
+            ConnectionString = connectionString;
+            Login = login;
+            Password = password;
         }
 
-        public void Login(AccountData account)
+        //авторизация в рдев
+        public void Auth()
         {
-            if (IsLoggedIn())
-            {
-               Logout();
-            }
-            Type(By.XPath("//input[@type='text']"), account.Username);
-            Type(By.XPath("//input[@type='password']"), account.Password);
-            driver.FindElement(By.XPath("//button[@type='submit']")).Click();
+            string stepInfo = "Авторизация пользователя";
+            driver.Navigate().GoToUrl(BaseURL);
+            manager.WaitHideElement(By.CssSelector("input[placeholder='Логин']"), stepInfo);
+            Type(By.CssSelector("input[placeholder='Логин']"), Login);
+            Type(By.CssSelector("input[placeholder='Пароль']"), Password);
+            driver.FindElement(By.CssSelector("button[type='submit']")).Click();
         }
+        //public void Logout()
+        //{
+        //    manager.Navigation.OpenHomePage();
+        //    ClickLogout();
+        //    driver.SwitchTo().Alert().Accept();
+        //    //проверки наличия элементов после выхода из авторизованной сессии
+        //    Checking();
 
-        public bool IsLoggedIn()
-        {
-            return IsElementPresent(By.XPath("//img[@alt='admin@nvx']"));                
-        }
-        // Нужно доработать (в отладчике проходит нормально, при выполнении падает, вероятно не успевает подтянуть значение).
-        public bool IsLoggedInByAdmin()
-        {
-            return IsLoggedIn()
-                && GetLoggetUserName() == "Administrator";
-        }
+        //}
 
-        private string GetLoggetUserName()
-        {
-            string text = driver.FindElement(By.LinkText("Administrator")).Text;
-            return text;
-        }
-
-        public void Logout()
-        {
-            if (IsLoggedIn())
-            {
-                driver.FindElement(By.XPath("//img[@alt='admin@nvx']")).Click();
-                driver.FindElement(By.XPath("(//button[@type='button'])[3]")).Click();
-            }
-        }
     }
 }

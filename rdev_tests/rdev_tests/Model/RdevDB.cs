@@ -1,15 +1,21 @@
-﻿using System;
+﻿using LinqToDB;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using LinqToDB;
 using LinqToDB.Data;
+using System.Text;
+using System.Threading.Tasks;
+using LinqToDB.DataProvider;
+using LinqToDB.Configuration;
 
-namespace rdev_tests
+namespace rdev_tests.Model
 {
-    class RdevDB : DataConnection
+    public class RdevDB : DataConnection
     {
-        public RdevDB() : base(ProviderName.PostgreSQL, @"Server=localhost;Port=5432;Database=rdev2019;User Id=postgres;Password=postgres;")
+        public RdevDB(string connectionString) : base(ProviderName.PostgreSQL, connectionString)
         {
         }
-        public ITable<StringData> Strings { get { return GetTable<StringData>(); } }
-    }    
+
+        public ITable<TypesData> Types { get { return GetTable<TypesData>(); } }
+    }
 }
