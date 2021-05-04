@@ -24,7 +24,7 @@ namespace rdev_tests
         protected RdevHelper rdevHelper;
         //protected SysBooleanHelper sysBooleanHelper;
         //protected SysDateHelper sysDateHelper;
-        protected SysIntHelper sysIntHelper;
+        protected SysStringHelper sysIntHelper;
         //protected SysEnumHelper sysEnumHelper;
         protected DbHelper dbHelper;
         protected HelperBase baseHelper;
@@ -49,7 +49,7 @@ namespace rdev_tests
             //sysBooleanHelper = new SysBooleanHelper(this, baseURL);
             //sysDateHelper = new SysDateHelper(this, baseURL);
             //sysEnumHelper = new SysEnumHelper(this, baseURL);
-            sysIntHelper = new SysIntHelper(this, baseURL);
+            sysIntHelper = new SysStringHelper(this, baseURL);
         }
         public static ApplicationManager GetInstance(SettingsJson settings)
         {
@@ -105,7 +105,7 @@ namespace rdev_tests
         //        return sysDateHelper;
         //    }
         //}
-        public SysIntHelper SysInt
+        public SysStringHelper SysInt
         {
             get
             {

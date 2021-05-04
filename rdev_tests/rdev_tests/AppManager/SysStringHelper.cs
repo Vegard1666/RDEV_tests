@@ -7,11 +7,11 @@ using OpenQA.Selenium;
 
 namespace rdev_tests.AppManager
 {
-    public class SysIntHelper : HelperBase
+    public class SysStringHelper : HelperBase
     {
 
         private string baseURL;
-        public SysIntHelper(ApplicationManager manager, string baseURL)
+        public SysStringHelper(ApplicationManager manager, string baseURL)
            : base(manager)
         {
             this.baseURL = baseURL;
@@ -21,7 +21,7 @@ namespace rdev_tests.AppManager
         /// Тест типа данных SysInt. Добавление записи
         /// </summary>
         /// <param name="value"></param>
-        public void SysIntTestCreate(string value, string type)
+        public void SysStringTestCreate(string value, string type)
         {
             manager.Navigation.OpenHomePage();
             manager.Rdev.ClickDataType();
@@ -33,7 +33,7 @@ namespace rdev_tests.AppManager
             //проверка что запись несохраненная (recstate=0)
             manager.Base.CheckingRecstate(0, recid);
 
-            manager.Rdev.FillFieldSysInt(value);
+            manager.Rdev.FillFieldSysString(value);
             //сохраняем текущий url
             string url = driver.Url;
             manager.Rdev.SaveСhangesNote();
@@ -101,7 +101,7 @@ namespace rdev_tests.AppManager
             //если в БД нет ни одной записи с тестируемым типом данных - создаем
             if (recid == "00000000-0000-0000-0000-000000000000")
             {
-                SysIntTestCreate(value, type);
+                SysStringTestCreate(value, type);
                 recid = manager.Db.GetRecidForTestingType(type);
             }
             manager.Navigation.OpenHomePage();
@@ -114,7 +114,7 @@ namespace rdev_tests.AppManager
             //получаем url страницы с записью тестируемого типа данных
             string urlType = String.Concat(url, @"/", recid);
             driver.Navigate().GoToUrl(urlType);
-            manager.Rdev.FillFieldSysInt(value);
+            manager.Rdev.FillFieldSysString(value);
             manager.Rdev.SaveСhangesNote();
             //проверка, что внесенные изменения корректно сохранились в БД
             string sysInt = manager.Db.GetInfoTypesForTestingType(recid, type);

@@ -44,7 +44,7 @@ namespace rdev_tests.AppManager
                 if (type == "sysint")
                 {
                     string value = "10";
-                    manager.SysInt.SysIntTestCreate(value, type);
+                    manager.SysInt.SysStringTestCreate(value, type);
                     recid = manager.Db.GetRecidForTestingType(type);
                 }
                 //else if (type == "sysenum")
@@ -99,28 +99,28 @@ namespace rdev_tests.AppManager
         }
 
         /// <summary>
-        /// Заполнение поля типа SysInt
+        /// Заполнение поля типа SysString
         /// </summary>
         /// <param name="value"></param>
-        public void FillFieldSysInt(string value)
+        public void FillFieldSysString(string value)
         {
-            string stepInfo = "Заполнение поля типа данных sysDate";
-            manager.WaitShowElement(By.XPath("//input[@name='sysint_test']"), stepInfo);
+            string stepInfo = "Заполнение поля типа данных sysString";
+            manager.WaitShowElement(By.XPath("//input[@name='sysstring_test']"), stepInfo);
             try
             {
-                var v = driver.FindElement(By.XPath("//input[@name='sysint_test']")).GetAttribute("value");
+                var v = driver.FindElement(By.XPath("//input[@name='sysstring_test']")).GetAttribute("value");
                 do
                 {
-                    driver.FindElement(By.XPath("//input[@name='sysint_test']")).Clear();
-                    v = driver.FindElement(By.XPath("//input[@name='sysint_test']")).GetAttribute("value");
+                    driver.FindElement(By.XPath("//input[@name='sysstring_test']")).Clear();
+                    v = driver.FindElement(By.XPath("//input[@name='sysstring_test']")).GetAttribute("value");
                 }
                 while (v != "");
 
-                driver.FindElement(By.XPath("//input[@name='sysint_test']")).SendKeys(value);
+                driver.FindElement(By.XPath("//input[@name='sysstring_test']")).SendKeys(value);
             }
             catch
             {
-                var el = driver.FindElement(By.XPath("//input[@name='sysint_test']"));
+                var el = driver.FindElement(By.XPath("//input[@name='sysstring_test']"));
                 el.Clear();
                 el.SendKeys(value);
             }

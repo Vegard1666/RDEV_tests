@@ -48,7 +48,7 @@ namespace rdev_tests.AppManager
         }
         public bool IsLoginIn()
         {
-            bool login = IsElementPresent(By.CssSelector("p.rdev-banner-title"));
+            bool login = IsElementPresent(By.CssSelector("a.navbar-brand"));
             return login;
         }
         //авторизация в рдев
