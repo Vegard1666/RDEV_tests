@@ -38,8 +38,7 @@ namespace rdev_tests.AppManager
         }
         //проверка на необходимость авторизации, если нет - авторизация
         public void LoginRdev()
-        {
-            string stepInfo = "проверка на необходимость авторизации, если пользователь не авторизован - авторизация";
+        {            
             Thread.Sleep(1000);
             if (IsLoginIn() == false)
             {

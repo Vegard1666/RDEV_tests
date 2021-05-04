@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using rdev_tests.Settings;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 

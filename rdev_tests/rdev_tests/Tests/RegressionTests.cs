@@ -12,56 +12,55 @@ namespace Tests
         }
         
         /// <summary>
-        /// Создание записи типа данных SysDate вручную заполняя поля даты
-        /// </summary>
+        /// Создание записи типа данных SysString
         /// <param name="value"></param>
-        [Test, Order(11), Category("SysString")]
+        [Test, Order(1), Category("SysString")]
         public void SysStringTestCreate(
             [Values(
-            "-2147483648", "2147483647",
-            "-123456", "50",
-            "-21474836480", "21474836470", "0",
-            "", "тест",
-            "Test", "!@#$%^&*()_+}{|")] string value)
+            "", "   ",
+            " Пробел до текста, внутри текста и после ", "ТЕКСТВВЕРХНЕМРЕГИСТРЕ",
+            "текствнижнемрегистре", "EnglishString", "0123456789",
+            "?!,.@;'", "-1234567890",
+            "$%^&*}{[]()+|@£€/¶§©®", "Эта строка содержит 255 символов Эта строка содержит 255 символов Эта строка содержит 255 символов Эта строка содержит 255 символов Эта строка содержит 255 символов Эта строка содержит 255 символов Эта строка содержит 255 символов!!!???!!!!!!!!!!!!!!!!!!")] string value)
         {
             string type = "sysstring";
-            app.SysInt.SysStringTestCreate(value, type);
+            app.SysString.SysStringTestCreate(value, type);
         }
 
         /// <summary>
         /// Редактирование записи типа данных SysString
         /// </summary>
         /// <param name="value"></param>
-        [Test, Order(12), Category("SysString")]
-        public void SysIntTestEdit(
+        [Test, Order(2), Category("SysString")]
+        public void SysStringTestEdit(
             [Values(
-            "-21.5", "555")] string value)
+            "Запись изменена!!!", "Row was changed!!!")] string value)
         {
-            string type = "sysint";
-            app.SysInt.SysIntTestEdit(value, type);
+            string type = "sysstring";
+            app.SysString.SysStringTestEdit(value, type);
         }
         /// <summary>
-        /// Удаление записи типа данных SysInt с отменой
+        /// Отмена удаления записи с типом данных SysString
         /// </summary>
-        [Test, Order(13), Category("SysInt")]
-        public void SysIntTestCancelDelete()
+        [Test, Order(3), Category("SysString")]
+        public void SysStringTestCancelDelete()
         {
             string action = "Отмена";
             //double - открыть запись двойным кликом, right - открыть запись через ПКМ > Открыть
             string click = "double";
-            string type = "sysint";
+            string type = "sysstring";
             app.Rdev.TestCancelDeleteOrSubmitDelete(type, action, click);
         }
         /// <summary>
-        /// Удаление записи типа данных SysInt
+        /// Удаление записи типа данных SysString
         /// </summary>
-        [Test, Order(14), Category("SysInt")]
-        public void SysIntTestDelete()
+        [Test, Order(4), Category("SysString")]
+        public void SysStringTestDelete()
         {
             string action = "Удалить";
             //double - открыть запись двойным кликом, right - открыть запись через ПКМ > Открыть
             string click = "right";
-            string type = "sysint";
+            string type = "sysstring";
             app.Rdev.TestCancelDeleteOrSubmitDelete(type, action, click);
         }        
     }

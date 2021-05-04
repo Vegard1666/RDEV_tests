@@ -1,12 +1,8 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using OpenQA.Selenium.Interactions;
-using LinqToDB.Configuration;
 using NUnit.Framework;
-using OpenQA.Selenium.Chrome;
 
 namespace rdev_tests.AppManager
 {
@@ -22,7 +18,7 @@ namespace rdev_tests.AppManager
 
 
         /// <summary>
-        /// Тест типа данных SysBoolean. Удаление или отмена удаления записи
+        /// Удаление или отмена удаления записи
         /// </summary>
         public void TestCancelDeleteOrSubmitDelete(string type, string action, string click)
         {
@@ -30,32 +26,13 @@ namespace rdev_tests.AppManager
             string recid = manager.Db.GetRecidForTestingType(type);
             //int count = manager.Db.CheckingRowInDb();
             if (recid == "00000000-0000-0000-0000-000000000000")
-            {
-                //if (type == "sysboolean")
-                //{
-                //    manager.SysBoolean.SysBooleanTestCreate();
-                //    recid = manager.Db.GetRecidForTestingType(type);
-                //}
-                //else if (type == "sysdate")
-                //{
-                //    manager.SysDate.SysDateTestCreateDateBox(type);
-                //    recid = manager.Db.GetRecidForTestingType(type);
-                //}
-                if (type == "sysint")
-                {
-                    string value = "10";
-                    manager.SysInt.SysStringTestCreate(value, type);
-                    recid = manager.Db.GetRecidForTestingType(type);
-                }
-                //else if (type == "sysenum")
-                //{
-                //    int value = 1;
-                //    manager.SysEnum.SysEnumTestCreate(value, type);
-                //    recid = manager.Db.GetRecidForTestingType(type);
-                //}
+            {                
+               string value = "10";
+               manager.SysString.SysStringTestCreate(value, type);
+               recid = manager.Db.GetRecidForTestingType(type);                               
             }
             manager.Navigation.OpenHomePage();
-            ClickDataType();
+            ClickDataTypes();
             ClickAllTypes();
             //получение url страницы
             string url = driver.Url;
@@ -77,27 +54,7 @@ namespace rdev_tests.AppManager
                 Assert.IsFalse(manager.Db.CheckingRecord(recid), "После удаления запись есть в БД");
             }
         }
-        /// <summary>
-        /// заполнение поля с типом данных SysEnum
-        /// </summary>
-        public void FillFieldSysEnum(int value)
-        {
-            string stepInfo = "заполнение поля с типом данных SysEnum";
-            manager.WaitShowElement(By.XPath("//input[@name='sysenum_test']/..//div[@class='dx-dropdowneditor-icon']"), stepInfo);
-            try
-            {
-                driver.FindElement(By.XPath("//input[@name='sysenum_test']/..//div[@class='dx-dropdowneditor-icon']")).Click();
-                driver.FindElements(By.XPath("//div[@class='dx-scrollview-content']//div[@role='option']"))[value].Click();
-            }
-            catch
-            {
-                var el = driver.FindElement(By.XPath("//input[@name='sysenum_test']/..//div[@class='dx-dropdowneditor-icon']"));
-                el.Click();
-                var el2 = driver.FindElements(By.XPath("//div[@class='dx-scrollview-content']//div[@role='option']"))[value];
-                el2.Click();
-            }
-        }
-
+        
         /// <summary>
         /// Заполнение поля типа SysString
         /// </summary>
@@ -126,51 +83,7 @@ namespace rdev_tests.AppManager
             }
         }
 
-        /// <summary>
-        /// заполнение поля типа sysDate через календарь
-        /// </summary>
-        /// <returns></returns>
-        public string FillFieldSysDateThroughDateBox(string lastDate, string chevron)
-        {
-            string stepInfo = "Заполнение поля типа sysDate через календарь";
-            var dt = manager.Base.GetDateForCompare(lastDate);
-
-            //получаем день текущей даты
-            DateTime thisDay = DateTime.Today;
-            int dateNow = thisDay.Day;
-            string dateNowToString = dateNow.ToString();
-            //исключить вероятность отсутствия текущей даты в предыдущем месяце
-            if (dateNow == 31 || dateNow == 30 || dateNow == 29)
-            {
-                dateNow = 28;
-            }
-            //DateTime MonthToDate = new DateTime();
-            ////если предыдущей даты нет - значит это создание записи и передаем значение предыдущего месяца от текущей даты
-            //if (chevron == "left")
-            //{
-            //    MonthToDate = thisDay.AddMonths(-1);
-            //}
-            ////если предыдущая дата есть - значит это редактирование записи и передаем значение следующего месяца от предыдущей даты
-            //else if(chevron == "right")
-            //{
-            //    MonthToDate = thisDay.AddMonths(+1);
-            //}
-            //int month = MonthToDate.Month;
-            //получаем даты предыдущего месяца текущей даты для корректного поиска даты в календаре
-            var dtNew = dt.ToString("yyyy/MM/dd");
-            string date = dtNew.Replace(".", "/");
-
-            manager.WaitShowElement(By.XPath("//input[@name='sysdate_test']/..//div[@role='button']"), stepInfo);
-            driver.FindElement(By.XPath("//input[@name='sysdate_test']/..//div[@role='button']")).Click();
-            manager.WaitShowElement(By.CssSelector($"i.dx-icon-chevron{chevron}"), stepInfo);
-            Thread.Sleep(1000);
-            driver.FindElement(By.CssSelector($"i.dx-icon-chevron{chevron}")).Click();
-            manager.WaitShowElement(By.XPath($"//td[@data-value='{date}']//span[contains(text(), '{dateNowToString}')]"), stepInfo);
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"//td[@data-value='{date}']//span[contains(text(), '{dateNowToString}')]")).Click();
-            string dateNew = driver.FindElement(By.XPath("//input[@name='sysdate_test']")).GetAttribute("value");
-            return dateNew;
-        }
+        
         /// <summary>
         /// Нажать кнопку "Редактировать"
         /// </summary>
@@ -203,7 +116,6 @@ namespace rdev_tests.AppManager
             driver.FindElement(By.CssSelector("tr[aria-rowindex='1']")).Click();
             Thread.Sleep(500);
         }
-
 
         /// <summary>
         /// Заполнить поле типа данных sysDate
@@ -275,18 +187,7 @@ namespace rdev_tests.AppManager
                 var el = driver.FindElement(By.XPath(selector));
                 el.Click();
             }
-        }
-        /// <summary>
-        /// Получение информации о состоянии чекбокса типа SysBoolean
-        /// </summary>
-        /// <returns></returns>
-        public bool CheckboxIsActive()
-        {
-            string stepInfo = "Получение информации о состоянии чекбокса типа SysBoolean";
-            manager.WaitShowElement(By.CssSelector("tr[aria-rowindex='1']"), stepInfo);
-            return manager.IsActiveElement();
-        }
-
+        }     
 
         /// <summary>
         /// Нажать 'Сохранить' у записи (кнопка сверху)
@@ -305,27 +206,7 @@ namespace rdev_tests.AppManager
                 Thread.Sleep(500);
             }
             Thread.Sleep(3000);
-        }
-
-        /// <summary>
-        /// клик на чекбокс SysBoolean
-        /// </summary>
-        public void ClickCheckboxTypeSysboolean()
-        {
-            string stepInfo = "клик на чекбокс SysBoolean";
-            manager.WaitShowElement(By.CssSelector("input[name='sysboolean_test']"), stepInfo);
-            try
-            {
-                var click = driver.FindElement(By.CssSelector("input[name='sysboolean_test']"));
-                click.Click();
-                Thread.Sleep(500);
-            }
-            catch
-            {
-                manager.JSClick(driver.FindElement(By.CssSelector("input[name='sysboolean_test']")));
-                Thread.Sleep(500);
-            }
-        }
+        }        
 
         /// <summary>
         /// клик на 'Добавить'
@@ -372,7 +253,7 @@ namespace rdev_tests.AppManager
         /// <summary>
         /// клик на таблицу 'Типы данных'
         /// </summary>
-        public void ClickDataType()
+        public void ClickDataTypes()
         {
             string stepInfo = "клик на таблицу 'Типы данных'";
             manager.WaitShowElement(By.XPath("//a[contains(text(), 'Типы данных')]"), stepInfo);

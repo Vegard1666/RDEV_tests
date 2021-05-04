@@ -30,16 +30,6 @@ namespace rdev_tests.AppManager
             Type(By.CssSelector("input[placeholder='Логин']"), Login);
             Type(By.CssSelector("input[placeholder='Пароль']"), Password);
             driver.FindElement(By.CssSelector("button[type='submit']")).Click();
-        }
-        //public void Logout()
-        //{
-        //    manager.Navigation.OpenHomePage();
-        //    ClickLogout();
-        //    driver.SwitchTo().Alert().Accept();
-        //    //проверки наличия элементов после выхода из авторизованной сессии
-        //    Checking();
-
-        //}
-
+        }   
     }
 }

@@ -20,22 +20,6 @@ namespace rdev_tests.Model
         public int Recstate { get; set; }
 
         [Column(Name = "sysstring_test")]
-        public int Sysstring { get; set; }
-
-        [Column(Name = "sysboolean_test")]
-        public bool? Sysboolean { get; set; }
-
-        [Column(Name = "sysdate_test")]
-        public DateTime Sysdate { get; set; }
-
-        [Column(Name = "sysnumber_test")]
-        public int Sysnumber { get; set; }
-
-        [Column(Name = "sysenum_test")]
-        public int? Sysenum { get; set; }
-
-        [Column(Name = "sysint_test")]
-        public int? Sysint { get; set; }
-
+        public string Sysstring { get; set; }         
     }
 }

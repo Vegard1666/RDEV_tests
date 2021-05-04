@@ -6,8 +6,6 @@ using OpenQA.Selenium.Support.UI;
 using rdev_tests.AppManager;
 using rdev_tests.Settings;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace rdev_tests
@@ -22,10 +20,7 @@ namespace rdev_tests
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;
         protected RdevHelper rdevHelper;
-        //protected SysBooleanHelper sysBooleanHelper;
-        //protected SysDateHelper sysDateHelper;
-        protected SysStringHelper sysIntHelper;
-        //protected SysEnumHelper sysEnumHelper;
+        protected SysStringHelper sysStringHelper;        
         protected DbHelper dbHelper;
         protected HelperBase baseHelper;
         private string connectionString;
@@ -34,7 +29,7 @@ namespace rdev_tests
         {
 
             var profile = new ChromeOptions();
-            profile.AddExtension(@"C:\Users\i.lebedev\AppData\Local\Google\Chrome\User Data\Default\Extensions\iifchhfnnmpdbibifmljnfjhpififfog\1.2.8_0.crx");
+            //profile.AddExtension(@"C:\Users\i.lebedev\AppData\Local\Google\Chrome\User Data\Default\Extensions\iifchhfnnmpdbibifmljnfjhpififfog\1.2.8_0.crx");
             driver = new ChromeDriver(profile);
             baseURL = settings.Rdev.Url;
             login = settings.Rdev.Login;
@@ -45,11 +40,8 @@ namespace rdev_tests
             navigationHelper = new NavigationHelper(this, baseURL, login, password);
             rdevHelper = new RdevHelper(this, baseURL);
             dbHelper = new DbHelper(this, connectionString);
-            baseHelper = new HelperBase(this);
-            //sysBooleanHelper = new SysBooleanHelper(this, baseURL);
-            //sysDateHelper = new SysDateHelper(this, baseURL);
-            //sysEnumHelper = new SysEnumHelper(this, baseURL);
-            sysIntHelper = new SysStringHelper(this, baseURL);
+            baseHelper = new HelperBase(this);            
+            sysStringHelper = new SysStringHelper(this, baseURL);
         }
         public static ApplicationManager GetInstance(SettingsJson settings)
         {
@@ -91,34 +83,15 @@ namespace rdev_tests
                 return rdevHelper;
             }
         }
-        //public SysBooleanHelper SysBoolean
-        //{
-        //    get
-        //    {
-        //        return sysBooleanHelper;
-        //    }
-        //}
-        //public SysDateHelper SysDate
-        //{
-        //    get
-        //    {
-        //        return sysDateHelper;
-        //    }
-        //}
-        public SysStringHelper SysInt
+        
+        public SysStringHelper SysString
         {
             get
             {
-                return sysIntHelper;
+                return sysStringHelper;
             }
         }
-        //public SysEnumHelper SysEnum
-        //{
-        //    get
-        //    {
-        //        return sysEnumHelper;
-        //    }
-        //}
+        
         public DbHelper Db
         {
             get

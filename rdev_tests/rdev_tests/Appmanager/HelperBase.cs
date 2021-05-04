@@ -2,9 +2,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace rdev_tests.AppManager
 {
@@ -88,41 +85,7 @@ namespace rdev_tests.AppManager
             }
             return false;
         }
-        /// <summary>
-        /// Получение даты для сравнения значений (либо дата предыдущего месяца текущей даты, либо следующий месяц от ранее введеной даты (если это редактирование)
-        /// </summary>
-        /// <returns></returns>
-        public DateTime GetDateForCompare(string lastDate)
-        {
-            DateTime thisDay = DateTime.Today;
-            int dateNow = thisDay.Day;
-            //исключить вероятность отсутствия текущей даты в предыдущем месяце
-            if (dateNow == 31 || dateNow == 30 || dateNow == 29)
-            {
-                dateNow = 28;
-            }
-            DateTime MonthToDate = new DateTime();
-            var dtNew = new DateTime();
-            //если предыдущей даты нет - значит это создание записи и передаем значение предыдущего месяца от текущей даты
-            if (lastDate == "")
-            {
-                MonthToDate = thisDay.AddMonths(-1);
-                int month = MonthToDate.Month;
-                dtNew = new DateTime(thisDay.Year, month, dateNow, 0, 0, 0, 0);
-            }
-            //если предыдущая дата есть - значит это редактирование записи и передаем значение следующего месяца от предыдущей даты
-            else
-            {
-                DateTime parsedDate = DateTime.Parse(lastDate);
-                MonthToDate = parsedDate.AddMonths(+1);
-                int month = MonthToDate.Month;
-                dtNew = new DateTime(parsedDate.Year, month, dateNow, 0, 0, 0, 0);
-            }
-
-            return dtNew;
-        }
-
-
+        
         /// <summary>
         /// получение идентификатора записи с URL
         /// </summary>
@@ -131,22 +94,6 @@ namespace rdev_tests.AppManager
             string currentURL = driver.Url;
             string id = currentURL.Split(@"/")[5];
             return id;
-        }
-
-        /// <summary>
-        /// получение информации о цвете поля из интерфекса (красный/серый)
-        /// </summary>
-        /// <returns></returns>
-        public bool ColorFieldTestingTypeIsRed(string type)
-        {
-            String script = $"return window.getComputedStyle(document.querySelector(\"input[name = '{type}_test']\")).getPropertyValue('border-color')";
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            string content = (String)js.ExecuteScript(script);
-            if (content == "rgb(204, 51, 51)")
-            {
-                return true;
-            }
-            return false;
-        }
+        }       
     }
 }
