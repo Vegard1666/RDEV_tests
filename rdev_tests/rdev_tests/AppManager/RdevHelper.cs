@@ -91,7 +91,7 @@ namespace rdev_tests.AppManager
         {
             string stepInfo = "клик на 'Редактировать'";
             manager.WaitShowElement(By.XPath("//div[@role='toolbar']//button[@type='button']"), stepInfo);
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             try
             {
                 var click = driver.FindElements(By.XPath("//div[@role='toolbar']//button[@type='button']"))[1];
@@ -114,27 +114,8 @@ namespace rdev_tests.AppManager
             string stepInfo = "Выделить первую запись";
             manager.WaitShowElement(By.CssSelector("tr[aria-rowindex='1']"), stepInfo);
             driver.FindElement(By.CssSelector("tr[aria-rowindex='1']")).Click();
-            Thread.Sleep(500);
-        }
-
-        /// <summary>
-        /// Заполнить поле типа данных sysDate
-        /// </summary>
-        public void FillFieldSysDate(string value)
-        {
-            string stepInfo = "Заполнение поля типа данных sysDate";
-            manager.WaitShowElement(By.XPath("//input[@name='sysdate_test']/..//input[@class='dx-texteditor-input']"), stepInfo);
-            try
-            {
-                driver.FindElement(By.XPath("//input[@name='sysdate_test']/..//input[@class='dx-texteditor-input']")).SendKeys(value);
-            }
-            catch
-            {
-                var el = driver.FindElement(By.XPath("//input[@name='sysdate_test']/..//input[@class='dx-texteditor-input']"));
-                el.SendKeys(value);
-            }
-        }
-
+            Thread.Sleep(200);
+        }      
 
         /// <summary>
         /// Удаление или отмена удаления записи
@@ -192,7 +173,7 @@ namespace rdev_tests.AppManager
         /// <summary>
         /// Нажать 'Сохранить' у записи (кнопка сверху)
         /// </summary>
-        public void SaveСhangesNote()
+        public void SubmitChanges()
         {
             try
             {

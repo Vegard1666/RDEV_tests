@@ -36,7 +36,7 @@ namespace rdev_tests.AppManager
             manager.Rdev.FillFieldSysString(value);
             //сохраняем текущий url
             string url = driver.Url;
-            manager.Rdev.SaveСhangesNote();
+            manager.Rdev.SubmitChanges();
             
             //проверка, что после сохранения recstate=1
             int recstateAfterSave = manager.Db.CheckRecstateInDb(recid);
@@ -63,7 +63,7 @@ namespace rdev_tests.AppManager
             string urlType = String.Concat(url, @"/", recid);
             driver.Navigate().GoToUrl(urlType);
             manager.Rdev.FillFieldSysString(value);
-            manager.Rdev.SaveСhangesNote();
+            manager.Rdev.SubmitChanges();
             //проверка, что внесенные изменения корректно сохранились в БД, тут нужно придумать что-то для стринга
             string sysString = manager.Db.GetInfoTypesForTestingType(recid, type);
             Assert.AreEqual(value, sysString, "Сохраненное значение типа sysstring не соответствует ожидаемому значению");            
