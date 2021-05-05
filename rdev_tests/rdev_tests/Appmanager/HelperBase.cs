@@ -38,21 +38,7 @@ namespace rdev_tests.AppManager
             int recstate = manager.Db.CheckRecstateInDb(recid);
             Assert.AreEqual(v, recstate, $"Ошибка! В БД recstate={recstate}. Ожидалось - recstate={v}");
         }
-
-        /// <summary>
-        /// Клик по элементу из списка
-        /// </summary>
-        /// <param name="locator"></param>
-        /// <param name="text"></param>
-        /// <param name="locatorXpath"></param>
-        public void SelectElementType(By locator, string text, By locatorXpath)
-        {
-            if (text != null)
-            {
-                new SelectElement(driver.FindElement(locator)).SelectByText(text);
-                driver.FindElement(locatorXpath).Click();
-            }
-        }
+       
         /// <summary>
         /// Получение информации о наличии элемента
         /// </summary>
@@ -69,22 +55,7 @@ namespace rdev_tests.AppManager
             {
                 return false;
             }
-        }
-        /// <summary>
-        /// получение информации о чекбоксе из интерфекса (включен/выключен)
-        /// </summary>
-        /// <returns></returns>
-        public bool IsActiveElement()
-        {
-            String script = "return window.getComputedStyle(document.querySelector('span.dx-checkbox-icon'),':before').getPropertyValue('position')";
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            string content = (String)js.ExecuteScript(script);
-            if (content == "absolute")
-            {
-                return true;
-            }
-            return false;
-        }
+        }      
         
         /// <summary>
         /// получение идентификатора записи с URL

@@ -130,7 +130,7 @@ namespace rdev_tests.AppManager
             manager.WaitShowElement(By.XPath("//div[contains(text(), 'Вы действительно хотите удалить запись?')]"), stepInfo);
             var click2 = driver.FindElement(By.XPath($"//div[@class='modal-footer']//button[contains(text(), '{action}')]"));
             click2.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
         }
 
         /// <summary>

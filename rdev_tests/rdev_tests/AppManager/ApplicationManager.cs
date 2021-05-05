@@ -115,12 +115,12 @@ namespace rdev_tests
         {
             try
             {
-                WebDriverWait iWait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+                WebDriverWait iWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 iWait.Until(ExpectedConditions.ElementIsVisible(iClassName));
             }
             catch (Exception)
             {
-                Assert.Fail($"Не найден ожидаемый элемент: '{iClassName}', время ожидания: 60сек. Шаг: {stepInfo}"); ;
+                Assert.Fail($"Не найден ожидаемый элемент: '{iClassName}', время ожидания: 10сек. Шаг: {stepInfo}"); ;
             }
         }
         /// <summary>
@@ -132,12 +132,12 @@ namespace rdev_tests
         {
             try
             {
-                WebDriverWait iWait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+                WebDriverWait iWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 iWait.Until(ExpectedConditions.InvisibilityOfElementLocated(iClassName));
             }
             catch (Exception)
             {
-                Assert.Fail($"Отображение троббера длилось более 60сек. Шаг: {stepInfo}");
+                Assert.Fail($"Отображение троббера длилось более 10сек. Шаг: {stepInfo}");
             }
         }
         /// <summary>

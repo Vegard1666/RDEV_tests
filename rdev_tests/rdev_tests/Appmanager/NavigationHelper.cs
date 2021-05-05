@@ -1,8 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
+
 
 namespace rdev_tests.AppManager
 {
@@ -28,38 +27,13 @@ namespace rdev_tests.AppManager
             driver.Navigate().GoToUrl(String.Concat(baseURL, "/login"));
             if (OpenLoginPage())
             {
-                LoginRdev();
+                manager.Auth.LoginRdev();
             }
         }
         public bool OpenLoginPage()
         {
             Thread.Sleep(1000);
             return IsElementPresent(By.Id("auth_logo"));
-        }
-        //проверка на необходимость авторизации, если нет - авторизация
-        public void LoginRdev()
-        {            
-            Thread.Sleep(1000);
-            if (IsLoginIn() == false)
-            {
-                Auth();
-            }
-        }
-        public bool IsLoginIn()
-        {
-            bool login = IsElementPresent(By.CssSelector("a.navbar-brand"));
-            return login;
-        }
-        //авторизация в рдев
-        public void Auth()
-        {
-            string stepInfo = "Авторизация пользователя";
-            manager.WaitShowElement(By.CssSelector("input[placeholder='Логин']"), stepInfo);
-            driver.FindElement(By.CssSelector("input[placeholder='Логин']")).SendKeys(Login);
-            driver.FindElement(By.CssSelector("input[placeholder='Пароль']")).SendKeys(Password);
-            driver.FindElement(By.CssSelector("button[type='submit']")).Click();
-            manager.WaitShowElement(By.CssSelector("a.navbar-brand"), stepInfo); // тут нужно придумать что-то другое, так как в разных сборках может не быть этого элемента
-        }
-
+        }      
     }
 }
