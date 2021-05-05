@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using rdev_tests.Tests;
 using System;
+using rdev_tests.AppManager;
 
 namespace Tests
 {
@@ -10,7 +11,22 @@ namespace Tests
         public void Setup()
         {
         }
-        
+
+        /// <summary>
+        /// Создание записи типа данных SysString c рандомными значениями.
+        /// <param name="value"></param>
+        [Test, Order(0), Category("SysString")]
+        public void RandomSysStringTestCreate()            
+        {
+            int l = 0;
+            string type = "sysstring";
+            do
+            {
+                string value = app.SysString.GenerateRandomString(60);
+                app.SysString.SysStringTestCreate(value, type);
+                l++;
+            } while (l < 5);
+        }
         /// <summary>
         /// Создание записи типа данных SysString
         /// <param name="value"></param>

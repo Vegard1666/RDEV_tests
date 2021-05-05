@@ -28,8 +28,7 @@ namespace rdev_tests
         private ApplicationManager(SettingsJson settings)
         {
 
-            var profile = new ChromeOptions();
-            //profile.AddExtension(@"C:\Users\i.lebedev\AppData\Local\Google\Chrome\User Data\Default\Extensions\iifchhfnnmpdbibifmljnfjhpififfog\1.2.8_0.crx");
+            var profile = new ChromeOptions();            
             driver = new ChromeDriver(profile);
             baseURL = settings.Rdev.Url;
             login = settings.Rdev.Login;
@@ -47,8 +46,7 @@ namespace rdev_tests
         {
             if (!app.IsValueCreated)
             {
-                ApplicationManager NewInstance = new ApplicationManager(settings);
-                //NewInstance.Navigation.OpenHomePage();
+                ApplicationManager NewInstance = new ApplicationManager(settings);                
                 app.Value = NewInstance;
 
             }
