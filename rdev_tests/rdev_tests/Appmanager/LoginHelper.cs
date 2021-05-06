@@ -21,19 +21,7 @@ namespace rdev_tests.AppManager
             Login = login;
             Password = password;
         }
-
-        ////авторизация в рдев
-        //public void Auth()
-        //{
-        //    string stepInfo = "Авторизация пользователя";
-        //    driver.Navigate().GoToUrl(BaseURL);
-        //    manager.WaitHideElement(By.CssSelector("input[placeholder='Логин']"), stepInfo);
-        //    Type(By.CssSelector("input[placeholder='Логин']"), Login);
-        //    Type(By.CssSelector("input[placeholder='Пароль']"), Password);
-        //    driver.FindElement(By.CssSelector("button[type='submit']")).Click();
-        //}
-
-        //проверка на необходимость авторизации, если нет - авторизация
+        
         public void LoginRdev()
         {
             Thread.Sleep(1000);

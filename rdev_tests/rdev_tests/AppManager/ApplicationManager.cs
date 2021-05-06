@@ -120,36 +120,7 @@ namespace rdev_tests
             {
                 Assert.Fail($"Не найден ожидаемый элемент: '{iClassName}', время ожидания: 10сек. Шаг: {stepInfo}"); ;
             }
-        }
-        /// <summary>
-        /// ожидание скрытия элемента
-        /// </summary>
-        /// <param name="iClassName"></param>
-        /// <param name="stepInfo"></param>
-        public void WaitHideElement(By iClassName, string stepInfo)
-        {
-            try
-            {
-                WebDriverWait iWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                iWait.Until(ExpectedConditions.InvisibilityOfElementLocated(iClassName));
-            }
-            catch (Exception)
-            {
-                Assert.Fail($"Отображение троббера длилось более 10сек. Шаг: {stepInfo}");
-            }
-        }
-        /// <summary>
-        /// Скролл до видимости элемента
-        /// </summary>
-        /// <param name="selector"></param>
-        public void ScrollToView(IWebElement selector)
-        {
-            Actions actions = new Actions(driver);
-
-            actions.MoveToElement(selector);
-
-            actions.Perform();
-        }
+        }        
         /// <summary>
         /// Клик через JavaScript
         /// </summary>
@@ -168,21 +139,6 @@ namespace rdev_tests
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
             var clickableElement = wait.Until(ExpectedConditions.ElementToBeClickable(selector));
-        }
-        /// <summary>
-        /// получение информации о чекбоксе из интерфекса (включен/выключен)
-        /// </summary>
-        /// <returns></returns>
-        public bool IsActiveElement()
-        {
-            String script = "return window.getComputedStyle(document.querySelector('span.dx-checkbox-icon'),':before').getPropertyValue('position')";
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            string content = (String)js.ExecuteScript(script);
-            if (content == "absolute")
-            {
-                return true;
-            }
-            return false;
-        }
+        }        
     }
 }

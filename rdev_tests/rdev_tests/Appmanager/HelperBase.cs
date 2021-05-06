@@ -14,20 +14,8 @@ namespace rdev_tests.AppManager
         {
             this.manager = manager;
             driver = manager.Driver;
-        }
-        /// <summary>
-        /// метод заполнения пустого поля
-        /// </summary>
-        /// <param name="locator"></param>
-        /// <param name="text"></param>
-        public void Type(By locator, string text)
-        {
-            if (text != null)
-            {
-                driver.FindElement(locator).Clear();
-                driver.FindElement(locator).SendKeys(text);
-            }
-        }
+        }        
+        
         /// <summary>
         /// Проверяется, что recstate равен ожидаемому значению
         /// </summary>

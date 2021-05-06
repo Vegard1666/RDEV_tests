@@ -27,7 +27,7 @@ namespace rdev_tests.AppManager
             //int count = manager.Db.CheckingRowInDb();
             if (recid == "00000000-0000-0000-0000-000000000000")
             {                
-               string value = "10";
+               string value = "Запись создана";
                manager.SysString.SysStringTestCreate(value, type);
                recid = manager.Db.GetRecidForTestingType(type);                               
             }

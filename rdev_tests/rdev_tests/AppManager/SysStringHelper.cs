@@ -59,7 +59,7 @@ namespace rdev_tests.AppManager
             string recid = manager.Db.GetRecidForTestingType(type);
             //если в БД нет ни одной записи с тестируемым типом данных - создаем
             if (recid == "00000000-0000-0000-0000-000000000000")
-            {
+            {                
                 SysStringTestCreate(value, type);
                 recid = manager.Db.GetRecidForTestingType(type);
             }

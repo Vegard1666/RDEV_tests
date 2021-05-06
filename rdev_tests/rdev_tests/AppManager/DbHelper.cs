@@ -44,17 +44,7 @@ namespace rdev_tests.AppManager
             {
                 return false;
             }
-        }
-        /// <summary>
-        /// возвращает количество записей в БД
-        /// </summary>
-        /// <returns></returns>
-        public int CheckingRowInDb()
-        {
-            RdevDB db = new RdevDB(ConnectionString);
-            int records = db.Types.Where(x => x.Recstate != 0).Count();
-            return records;
-        }
+        }        
         /// <summary>
         /// получение текста колонки тестируемого типа
         /// </summary>
