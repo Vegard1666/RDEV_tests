@@ -35,8 +35,8 @@ namespace rdev_tests.AppManager
         public void SysStringTestCreate(string value, string type)
         {
             manager.Navigation.OpenHomePage();
-            manager.Rdev.ClickDataTypes();
-            manager.Rdev.ClickAllTypes();
+            manager.Navigation.GoToDataTypesMenu();
+            manager.Navigation.GoToTypesTable();
             manager.Rdev.ClickAdd();
             //получение id записи
             string recid = manager.Base.GetRecid();
@@ -44,7 +44,7 @@ namespace rdev_tests.AppManager
             //проверка что запись несохраненная (recstate=0)
             manager.Base.CheckingRecstate(0, recid);
 
-            manager.Rdev.FillFieldSysString(value);
+            FillFieldSysString(value);
             //сохраняем текущий url
             string url = driver.Url;
             manager.Rdev.SubmitChanges();
@@ -64,8 +64,8 @@ namespace rdev_tests.AppManager
                 recid = manager.Db.GetRecidForTestingType(type);
             }
             manager.Navigation.OpenHomePage();
-            manager.Rdev.ClickDataTypes();
-            manager.Rdev.ClickAllTypes();
+            manager.Navigation.GoToDataTypesMenu();
+            manager.Navigation.GoToTypesTable();
             //получение url страницы
             string url = driver.Url;
             manager.Rdev.ClickFirstRow();
@@ -73,11 +73,28 @@ namespace rdev_tests.AppManager
             //получаем url страницы с записью тестируемого типа данных
             string urlType = String.Concat(url, @"/", recid);
             driver.Navigate().GoToUrl(urlType);
-            manager.Rdev.FillFieldSysString(value);
+            FillFieldSysString(value);
             manager.Rdev.SubmitChanges();
             //проверка, что внесенные изменения корректно сохранились в БД, тут нужно придумать что-то для стринга
             string sysString = manager.Db.GetInfoTypesForTestingType(recid, type);
             Assert.AreEqual(value, sysString, "Сохраненное значение типа sysstring не соответствует ожидаемому значению");            
+        }
+        /// <summary>
+        /// Заполнение поля типа SysString
+        /// </summary>
+        /// <param name="value"></param>
+        public void FillFieldSysString(string value)
+        {
+            string stepInfo = "Заполнение поля типа данных sysString";
+            manager.WaitShowElement(By.XPath("//input[@name='sysstring_test']"), stepInfo);
+            var v = driver.FindElement(By.XPath("//input[@name='sysstring_test']")).GetAttribute("value");
+            do
+            {
+                driver.FindElement(By.XPath("//input[@name='sysstring_test']")).Clear();
+                v = driver.FindElement(By.XPath("//input[@name='sysstring_test']")).GetAttribute("value");
+            }
+            while (v != "");
+            driver.FindElement(By.XPath("//input[@name='sysstring_test']")).SendKeys(value);
         }
     }
 }

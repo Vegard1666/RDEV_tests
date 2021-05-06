@@ -23,8 +23,7 @@ namespace rdev_tests.AppManager
         public void TestCancelDeleteOrSubmitDelete(string type, string action, string click)
         {
             //получаем первый найденный в БД id тестируемого типа
-            string recid = manager.Db.GetRecidForTestingType(type);
-            //int count = manager.Db.CheckingRowInDb();
+            string recid = manager.Db.GetRecidForTestingType(type);            
             if (recid == "00000000-0000-0000-0000-000000000000")
             {                
                string value = "Запись создана";
@@ -32,8 +31,8 @@ namespace rdev_tests.AppManager
                recid = manager.Db.GetRecidForTestingType(type);                               
             }
             manager.Navigation.OpenHomePage();
-            ClickDataTypes();
-            ClickAllTypes();
+            manager.Navigation.GoToDataTypesMenu();
+            manager.Navigation.GoToTypesTable();
             //получение url страницы
             string url = driver.Url;
             OpenFirstRow(click);
@@ -53,37 +52,8 @@ namespace rdev_tests.AppManager
             {
                 Assert.IsFalse(manager.Db.CheckingRecord(recid), "После удаления запись есть в БД");
             }
-        }
-        
-        /// <summary>
-        /// Заполнение поля типа SysString
-        /// </summary>
-        /// <param name="value"></param>
-        public void FillFieldSysString(string value)
-        {
-            string stepInfo = "Заполнение поля типа данных sysString";
-            manager.WaitShowElement(By.XPath("//input[@name='sysstring_test']"), stepInfo);
-            try
-            {
-                var v = driver.FindElement(By.XPath("//input[@name='sysstring_test']")).GetAttribute("value");
-                do
-                {
-                    driver.FindElement(By.XPath("//input[@name='sysstring_test']")).Clear();
-                    v = driver.FindElement(By.XPath("//input[@name='sysstring_test']")).GetAttribute("value");
-                }
-                while (v != "");
-
-                driver.FindElement(By.XPath("//input[@name='sysstring_test']")).SendKeys(value);
-            }
-            catch
-            {
-                var el = driver.FindElement(By.XPath("//input[@name='sysstring_test']"));
-                el.Clear();
-                el.SendKeys(value);
-            }
-        }
-
-        
+        }      
+                
         /// <summary>
         /// Нажать кнопку "Редактировать"
         /// </summary>
@@ -91,20 +61,20 @@ namespace rdev_tests.AppManager
         {
             string stepInfo = "клик на 'Редактировать'";
             manager.WaitShowElement(By.XPath("//div[@role='toolbar']//button[@type='button']"), stepInfo);
-            Thread.Sleep(500);
+            Thread.Sleep(200);
             try
             {
                 var click = driver.FindElements(By.XPath("//div[@role='toolbar']//button[@type='button']"))[1];
                 click.Click();
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
             catch
             {
                 manager.JSClick(driver.FindElements(By.XPath("//div[@role='toolbar']//button[@type='button']"))[1]);
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
             manager.WaitShowElement(By.CssSelector("div.card-body"), stepInfo);
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
         }
         /// <summary>
         /// Выделить первую запись
@@ -130,7 +100,7 @@ namespace rdev_tests.AppManager
             manager.WaitShowElement(By.XPath("//div[contains(text(), 'Вы действительно хотите удалить запись?')]"), stepInfo);
             var click2 = driver.FindElement(By.XPath($"//div[@class='modal-footer']//button[contains(text(), '{action}')]"));
             click2.Click();
-            Thread.Sleep(500);
+            Thread.Sleep(200);
         }
 
         /// <summary>
@@ -179,14 +149,14 @@ namespace rdev_tests.AppManager
             {
                 var click = driver.FindElements(By.CssSelector("button[type='submit']"))[0];
                 click.Click();
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
             catch
             {
                 manager.JSClick(driver.FindElements(By.CssSelector("button[type='submit']"))[0]);
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
         }        
 
         /// <summary>
@@ -200,56 +170,15 @@ namespace rdev_tests.AppManager
             {
                 var click = driver.FindElement(By.XPath("//button[@type='button' and contains(text(), 'Добавить')]"));
                 click.Click();
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
             catch
             {
                 manager.JSClick(driver.FindElement(By.XPath("//button[@type='button' and contains(text(), 'Добавить')]")));
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
             manager.WaitShowElement(By.CssSelector("div.card-body"), stepInfo);
-            Thread.Sleep(1000);
-        }
-
-        /// <summary>
-        /// клик на таблицу 'Все типы'
-        /// </summary>
-        public void ClickAllTypes()
-        {
-            string stepInfo = "клик на таблицу 'Все типы'";
-            try
-            {
-                var click = driver.FindElement(By.XPath("//a[contains(text(), 'Все типы')]"));
-                click.Click();
-                Thread.Sleep(500);
-            }
-            catch
-            {
-                manager.JSClick(driver.FindElement(By.XPath("//a[contains(text(), 'Все типы')]")));
-                Thread.Sleep(500);
-            }
-            manager.WaitShowElement(By.CssSelector("div.card-header"), stepInfo);
-        }
-
-        /// <summary>
-        /// клик на таблицу 'Типы данных'
-        /// </summary>
-        public void ClickDataTypes()
-        {
-            string stepInfo = "клик на таблицу 'Типы данных'";
-            manager.WaitShowElement(By.XPath("//a[contains(text(), 'Типы данных')]"), stepInfo);
-            try
-            {
-                var click = driver.FindElement(By.XPath("//a[contains(text(), 'Типы данных')]"));
-                click.Click();
-                Thread.Sleep(500);
-            }
-            catch
-            {
-                manager.JSClick(driver.FindElement(By.XPath("//a[contains(text(), 'Типы данных')]")));
-                Thread.Sleep(500);
-            }
             Thread.Sleep(500);
-        }
+        }               
     }
 }
