@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
+using rdev_tests.Model;
 
 namespace rdev_tests.AppManager
 {
@@ -179,6 +180,6 @@ namespace rdev_tests.AppManager
             }
             manager.WaitShowElement(By.CssSelector("div.card-body"), stepInfo);
             Thread.Sleep(500);
-        }               
+        }             
     }
 }

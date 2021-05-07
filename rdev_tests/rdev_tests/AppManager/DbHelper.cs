@@ -76,6 +76,42 @@ namespace rdev_tests.AppManager
             }            
             return id.ToString();
         }
-        
+
+        public string SearchingInDb (string value)
+        {
+            RdevDB db = new RdevDB(ConnectionString);            
+            if (value == "Equal")
+            { 
+                var count = db.Types.Where(s => s.Sysstring == ("0123456789")).Select(s => s.Sysstring).Count();
+                return count.ToString();
+            }
+            if (value == "Not Equal") 
+            {
+                var count = db.Types.Where(s => (s.Sysstring != "0123456789") && (s.Recstate == 1)).Select(s => s.Sysstring).Count();
+                return count.ToString();
+            }
+            if (value == "Contains")
+            {
+                var count = db.Types.Where(s => (s.Sysstring.Contains("456")) && (s.Recstate == 1)).Select(s => s.Sysstring).Count();
+                return count.ToString();
+            }
+            if (value == "Starts with")
+            {
+                var count = db.Types.Where(s => (s.Sysstring.StartsWith("01")) && (s.Recstate == 1)).Select(s => s.Sysstring).Count();
+                return count.ToString();
+            }
+            if (value == "Ends with")
+            {
+                var count = db.Types.Where(s => (s.Sysstring.EndsWith("789")) && (s.Recstate == 1)).Select(s => s.Sysstring).Count();
+                return count.ToString();
+            }
+            if (value == "Not contains")
+            {                
+                var count = db.Types.Where(s => !(s.Sysstring.Contains("456")) && (s.Recstate == 1)).Select(s => s.Sysstring).Count();
+                return count.ToString();
+            }
+            return ToString();
+        }
+
     }
 }

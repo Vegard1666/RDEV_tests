@@ -2,6 +2,10 @@
 using rdev_tests.Tests;
 using System;
 using rdev_tests.AppManager;
+using OpenQA.Selenium;
+using System.Threading;
+using OpenQA.Selenium.Interactions;
+
 
 namespace Tests
 {
@@ -78,6 +82,15 @@ namespace Tests
             string click = "right";
             string type = "sysstring";
             app.Rdev.TestCancelDeleteOrSubmitDelete(type, action, click);
-        }        
+        }
+
+        [Test, Order(5), Category("SysString")]
+        // нужно доработать
+        public void SearchingSysString([Values("Equal", "Not Equal", "Contains", "Starts with", "Ends with", "Not contains")] string value)
+        {
+            string countFromUi = app.SysString.SearchingInUi(value);
+            string countFromDb = app.Db.SearchingInDb(value);
+            Assert.AreEqual(countFromDb, countFromUi);
+        }
     }
 }

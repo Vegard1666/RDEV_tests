@@ -32,8 +32,47 @@ namespace rdev_tests.AppManager
         }
         public bool OpenLoginPage()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             return IsElementPresent(By.Id("auth_logo"));
-        }      
+        }
+        /// <summary>
+        /// клик на таблицу 'Типы данных'
+        /// </summary>
+        public void GoToDataTypesMenu()
+        {
+            string stepInfo = "клик на таблицу 'Типы данных'";
+            manager.WaitShowElement(By.XPath("//a[contains(text(), 'Типы данных')]"), stepInfo);
+            try
+            {
+                var click = driver.FindElement(By.XPath("//a[contains(text(), 'Типы данных')]"));
+                click.Click();
+                Thread.Sleep(200);
+            }
+            catch
+            {
+                manager.JSClick(driver.FindElement(By.XPath("//a[contains(text(), 'Типы данных')]")));
+                Thread.Sleep(200);
+            }
+            Thread.Sleep(200);
+        }
+        /// <summary>
+        /// клик на таблицу 'Все типы'
+        /// </summary>
+        public void GoToTypesTable()
+        {
+            string stepInfo = "клик на таблицу 'Все типы'";
+            try
+            {
+                var click = driver.FindElement(By.XPath("//a[contains(text(), 'Все типы')]"));
+                click.Click();
+                Thread.Sleep(500);
+            }
+            catch
+            {
+                manager.JSClick(driver.FindElement(By.XPath("//a[contains(text(), 'Все типы')]")));
+                Thread.Sleep(500);
+            }
+            manager.WaitShowElement(By.CssSelector("div.card-header"), stepInfo);
+        }
     }
 }

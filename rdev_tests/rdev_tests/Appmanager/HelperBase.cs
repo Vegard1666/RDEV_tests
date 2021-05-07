@@ -8,7 +8,7 @@ namespace rdev_tests.AppManager
     public class HelperBase
     {
         protected ApplicationManager manager;
-        protected IWebDriver driver;
+        public IWebDriver driver;
 
         public HelperBase(ApplicationManager manager)
         {
