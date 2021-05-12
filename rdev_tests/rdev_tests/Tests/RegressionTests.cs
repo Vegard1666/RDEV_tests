@@ -84,8 +84,11 @@ namespace Tests
             app.Rdev.TestCancelDeleteOrSubmitDelete(type, action, click);
         }
 
+        /// <summary>
+        /// Поиск записей SysString
+        /// </summary>
         [Test, Order(5), Category("SysString")]
-        // нужно доработать
+        
         public void SearchingSysString([Values("Equal", "Not Equal", "Contains", "Starts with", "Ends with", "Not contains")] string value)
         {
             string countFromUi = app.SysString.SearchingInUi(value);

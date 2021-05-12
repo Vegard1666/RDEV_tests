@@ -91,6 +91,8 @@ namespace rdev_tests.AppManager
             var v = driver.FindElement(By.Name("sysstring_test"));
             v.GetAttribute("value");
             v.Click();
+            Thread.Sleep(1000);
+            v.SendKeys(Keys.End);
             v.SendKeys(Keys.Shift + Keys.Home + Keys.Delete);
             v.SendKeys(value);
         }
@@ -106,7 +108,7 @@ namespace rdev_tests.AppManager
                 FillSearchingField(v);
                 ClickOnSearchingIcon();
                 driver.FindElement(By.XPath("//span[@class='dx-menu-item-text' and contains(text(), 'Равно')]")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 var c = driver.FindElements(By.XPath("//td[@aria-colindex='1']")).Count - 2;
                 return c.ToString();
             }            
@@ -116,7 +118,7 @@ namespace rdev_tests.AppManager
                 FillSearchingField(v);
                 ClickOnSearchingIcon();
                 driver.FindElement(By.XPath("//span[@class='dx-menu-item-text' and contains(text(), 'Не равно')]")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 var c = driver.FindElements(By.XPath("//td[@aria-colindex='1']")).Count - 2;
                 return c.ToString();
             }
@@ -126,7 +128,7 @@ namespace rdev_tests.AppManager
                 FillSearchingField(v);
                 ClickOnSearchingIcon();
                 driver.FindElement(By.XPath("//span[@class='dx-menu-item-text' and contains(text(), 'Содержит')]")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 var c = driver.FindElements(By.XPath("//td[@aria-colindex='1']")).Count - 2;
                 return c.ToString();
             }
@@ -136,7 +138,7 @@ namespace rdev_tests.AppManager
                 FillSearchingField(v);
                 ClickOnSearchingIcon();
                 driver.FindElement(By.XPath("//span[@class='dx-menu-item-text' and contains(text(), 'Не содержит')]")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 var c = driver.FindElements(By.XPath("//td[@aria-colindex='1']")).Count - 2;
                 return c.ToString();
             }
@@ -146,7 +148,7 @@ namespace rdev_tests.AppManager
                 FillSearchingField(v);
                 ClickOnSearchingIcon();
                 driver.FindElement(By.XPath("//span[@class='dx-menu-item-text' and contains(text(), 'Начинается с')]")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 var c = driver.FindElements(By.XPath("//td[@aria-colindex='1']")).Count - 2;
                 return c.ToString();
             }
@@ -156,7 +158,7 @@ namespace rdev_tests.AppManager
                 FillSearchingField(v);
                 ClickOnSearchingIcon();
                 driver.FindElement(By.XPath("//span[@class='dx-menu-item-text' and contains(text(), 'Заканчивается на')]")).Click();
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 var c = driver.FindElements(By.XPath("//td[@aria-colindex='1']")).Count - 2;
                 return c.ToString();
             }
@@ -165,9 +167,10 @@ namespace rdev_tests.AppManager
 
         public void FillSearchingField(string v)
         {
-            string stepInfo = "Заполнение строки поиска";
-            manager.WaitShowElement(By.XPath("//input[@type='text']"), stepInfo);
-            var a = driver.FindElements(By.XPath("//input[@type='text']"))[0];
+            //string stepInfo = "Заполнение строки поиска";
+            //manager.WaitShowElement(By.XPath("//input[@type='text' and @aria-describedby='dx-col-326']"), stepInfo);
+            Thread.Sleep(2000);
+            var a = driver.FindElements(By.XPath("//input[@type='text']"))[0];            
             a.Click();
             a.Clear();
             a.SendKeys(v);

@@ -113,12 +113,12 @@ namespace rdev_tests
         {
             try
             {
-                WebDriverWait iWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                WebDriverWait iWait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
                 iWait.Until(ExpectedConditions.ElementIsVisible(iClassName));
             }
             catch (Exception)
             {
-                Assert.Fail($"Не найден ожидаемый элемент: '{iClassName}', время ожидания: 10сек. Шаг: {stepInfo}"); ;
+                Assert.Fail($"Не найден ожидаемый элемент: '{iClassName}', время ожидания: 60сек. Шаг: {stepInfo}"); ;
             }
         }        
         /// <summary>
